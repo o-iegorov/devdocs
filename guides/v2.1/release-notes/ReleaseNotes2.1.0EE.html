@@ -559,8 +559,9 @@
   </li>
   <li><a href="#installation-and-upgrade-instructions-1">Installation and upgrade instructions</a>    <ul>
       <li><a href="#install-rc-composer">Get Magento EE using Composer</a></li>
+      <li><a href="#get-zip">Get Magento EE using a compressed archive</a></li>
       <li><a href="#complete-the-installation">Complete the installation</a></li>
-      <li><a href="#upgrades">Upgrades</a></li>
+      <li><a href="#upgrade-from-an-earlier-version">Upgrade from an earlier version</a></li>
     </ul>
   </li>
   <li><a href="#migration-toolkits">Migration toolkits</a></li>
@@ -3085,12 +3086,18 @@ composer update
 <div>
 
   <h2 id="installation-and-upgrade-instructions-1">Installation and upgrade instructions</h2>
-  <p>You can install Magento Enterprise Edition 2.1 (including a Release Candidate) using Composer. </p>
+  <p>See one of the following sections:</p>
+
+  <ul>
+    <li><a href="#install-rc-composer">Get Magento EE using Composer</a></li>
+    <li><a href="#get-zip">Get Magento EE using a compressed archive</a></li>
+    <li><a href="#upgrade">Upgrade from an earlier version</a></li>
+  </ul>
 
   <p>A Release Candidate is for testing purposes only. Do not install it in a production environment.</p>
 
   <h3 id="install-rc-composer">Get Magento EE using Composer</h3>
-  <p>This Release Candidate is available from <code>repo.magento.com</code>. Before installing this Release Candidate using Composer,  familiarize yourself with these  <a href="/guides/v2.1/install-gde/prereq/integrator_install.html" target="_blank">prerequisites</a>, then run:</p>
+  <p>Magento EE is available from <code>repo.magento.com</code>. Before installing the Magento EE software using Composer,  familiarize yourself with these  <a href="/guides/v2.1/install-gde/prereq/integrator_install.html" target="_blank">prerequisites</a>, then run:</p>
 
   <pre><code>composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=&lt;version&gt; &lt;installation directory name&gt;
 </code></pre>
@@ -3102,28 +3109,77 @@ composer update
   <pre><code>composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.1.0 magento2
 </code></pre>
 
-  <h3 id="complete-the-installation">Complete the installation</h3>
-  <p>After you get the EE software:</p>
+  <h3 id="get-zip">Get Magento EE using a compressed archive</h3>
+  <div>
 
-  <ol>
-    <li><a href="/guides/v2.1/install-gde/prereq/file-system-perms.html">Set file system ownership and permissions</a>.</li>
-    <li>
-      <p>Install the software:</p>
+    <p>The following table discusses where to get the Magento software. We provide the following downloads:</p>
 
-      <ul>
-        <li><a href="/guides/v2.1/install-gde/install/web/install-web.html">Web Setup Wizard</a></li>
-        <li><a href="/guides/v2.1/install-gde/install/cli/install-cli.html">Command line</a></li>
-      </ul>
-    </li>
-  </ol>
+    <ul>
+      <li>Magento CE or EE software only</li>
+      <li>Magento CE or EE software with sample data (designed to help you learn Magento faster)</li>
+    </ul>
 
-  <h3 id="upgrades">Upgrades</h3>
-  <p>To upgrade to Magento 2.1 (including a Release Candidate), see <a href="/guides/v2.1/release-notes/tech_bull_21-upgrade.html">Upgrade to Magento version 2.1 (June 22, 2016)</a>.</p>
+    <p>These packages are easy to get and install. You don’t need to use Composer, all you need to do is to upload a package to your Magento server or hosted platform, unpack it, and run the web-based Setup Wizard.</p>
 
-  <h2 id="migration-toolkits">Migration toolkits</h2>
-  <p>The <a href="/guides/v2.1/migration/migration-migrate.html" target="_blank">Data Migration Tool</a> helps transfer existing Magento 1.x store data to Magento 2.x. This command-line interface includes verification, progress tracking, logging, and testing functions. For installation instructions, see  <a href="migration/migration-tool-install.html" target="_blank">Install the Data Migration Tool</a>. Consider exploring or contributing to the <a href="https://github.com/magento/data-migration-tool" target="_blank"> Magento Data Migration repository</a>.</p>
+    <p>Archives are available in the following formats: <code>.zip</code>, <code>.tar.bz2</code>, <code>.tar.gz</code></p>
 
-  <p>The <a href="https://github.com/magento/code-migration" target="_blank">Code Migration Toolkit</a> helps transfer existing Magento 1.x store extensions and customizations to Magento 2.0.x. The command-line interface includes scripts for converting Magento 1.x modules and layouts.</p>
+    <table>
+	<col width="30%" />
+	<col width="70%" />
+<tbody>
+<tr> 
+	<th>Magento edition</th>
+	<th>Install package location</th>
+</tr>
+<tr> 
+	<td>Magento CE</td>
+	<td><p><a href="http://www.magento.com/download" target="_blank">www.magento.com/download</a></p>
+		<p>Choose either the software or the software and sample data:</p>
+		<ul><li><code>Magento-CE-&lt;version&gt;.*</code> (without sample data)</li>
+			<li><code>Magento-CE-&lt;version&gt;+Samples.*</code> (with sample data)</li>
+			<p><code>&lt;version/&gt;</code> is the three-digit release number (for example, <code>2.0.7</code>, <code>2.1.0</code>, and so on.)</p></ul></td>
+</tr>
+<tr> 
+	<td>Magento EE</td>
+	<td>Use the following steps:
+	<ol><li>Go to <a href="http://www.magento.com" target="_blank">www.magento.com</a></li>
+	<li>In the top horizontal navigation bar, click <strong>My Account</strong>.</li>
+	<li>Log in with your Magento user name and password.</li>
+	<li>In the left navigation bar, click <strong>Downloads</strong>.</li>
+	<li>In the right pane, click <strong>Magento Enterprise Edition 2.X</strong> &gt; <strong>Full Release</strong> or <strong>Magento Enterprise Edition 2.X</strong> &gt; <strong>Full Release + Sample Data</strong> for the software.</li>
+	<li>Follow the instructions on your screen to complete the Magento EE download:
+		<ul><li><code>Magento-EE-&lt;version&gt;.*</code> (without sample data)</li>
+			<li><code>Magento-EE-&lt;version&gt;+Samples.*</code> (with sample data)</li></ul>
+
+	</li>
+	<li>Transfer the installation package to your development system.</li></ol></td>
+</tr>
+</tbody>
+</table>
+
+    <h3 id="complete-the-installation">Complete the installation</h3>
+    <p>After you get the EE software:</p>
+
+    <ol>
+      <li><a href="/guides/v2.1/install-gde/prereq/file-system-perms.html">Set file system ownership and permissions</a>.</li>
+      <li>
+        <p>Install the software:</p>
+
+        <ul>
+          <li><a href="/guides/v2.1/install-gde/install/web/install-web.html">Web Setup Wizard</a></li>
+          <li><a href="/guides/v2.1/install-gde/install/cli/install-cli.html">Command line</a></li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3 id="upgrade-from-an-earlier-version">Upgrade from an earlier version</h3>
+    <p>To upgrade to Magento EE 2.1 from an earlier version, see <a href="/guides/v2.1/release-notes/tech_bull_21-upgrade.html">Upgrade to Magento version 2.1 (June 22, 2016)</a>.</p>
+
+    <h2 id="migration-toolkits">Migration toolkits</h2>
+    <p>The <a href="/guides/v2.1/migration/migration-migrate.html" target="_blank">Data Migration Tool</a> helps transfer existing Magento 1.x store data to Magento 2.x. This command-line interface includes verification, progress tracking, logging, and testing functions. For installation instructions, see  <a href="migration/migration-tool-install.html" target="_blank">Install the Data Migration Tool</a>. Consider exploring or contributing to the <a href="https://github.com/magento/data-migration-tool" target="_blank"> Magento Data Migration repository</a>.</p>
+
+    <p>The <a href="https://github.com/magento/code-migration" target="_blank">Code Migration Toolkit</a> helps transfer existing Magento 1.x store extensions and customizations to Magento 2.0.x. The command-line interface includes scripts for converting Magento 1.x modules and layouts.</p>
+  </div>
 </div>
 
 
