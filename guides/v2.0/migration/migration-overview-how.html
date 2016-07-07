@@ -169,7 +169,7 @@
 	<div class="container">
 		<h1 class="page-heading">How migration works</h1>
 		
-			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/migration/migration-overview-how.md" target="_blank">Edit this page on GitHub</a>
+			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v/migration/migration-overview-how.md" target="_blank">Edit this page on GitHub</a>
 		
 		
 	</div>
@@ -647,14 +647,14 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 22 June 2016 (PDT)</i></p>
+			<p align="right"><i>Updated: 7 July 2016 (PDT)</i></p>
 		<h2>How migration works</h2>
 
 <p>This document uses the following terminology to discuss the Data Migration Tool:</p>
 
 <ul>
   <li>Step: A unique migration task that must be executed in a prescribed order</li>
-  <li>Map: A set of rules that describe connections between Magento 1.x and Magento 2.0 data structures</li>
+  <li>Map: A set of rules that describe connections between Magento 1.x and Magento 2.x data structures</li>
   <li>Mode: Represented by a separate Data Migration Tool command, defines the basic mode of operation as:
     <ul>
       <li>Settings: Migrates the system configuration and website-related settings</li>
@@ -679,7 +679,7 @@
 <h4>Conceptual overview</h4>
 <p>The data migration tool recognizes the differences in database structure between Magento 1.x versions. Most of these database structural differences are declared in <em>map files</em>. Each step in the process uses map files to transform data for use in your Magento 2 store.</p>
 
-<p>For example, when you transform data from a Magento CE 1.8.0.0 database to Magento 2.0.4, the map file accounts for the fact that a table was renamed and renames it accordingly in the destination database. If there are no differences in data structure or data format, the Data Migration Tool transfers it as-is to the Magento 2 database, including data from tables created by extensions. </p>
+<p>For example, when you transform data from a Magento CE 1.8.0.0 database to Magento 2.x.x, the map file accounts for the fact that a table was renamed and renames it accordingly in the destination database. If there are no differences in data structure or data format, the Data Migration Tool transfers it as-is to the Magento 2 database, including data from tables created by extensions. </p>
 
 <p>When differences are not declared in map files, then the Data Migration Tool displays an error and does not start.</p>
 
