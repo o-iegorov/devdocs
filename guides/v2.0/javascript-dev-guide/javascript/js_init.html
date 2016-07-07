@@ -610,11 +610,11 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 6 July 2016 (PDT)</i></p>
+			<p align="right"><i>Updated: 7 July 2016 (PDT)</i></p>
 		<h2 id="js_init_overview">Overview</h2>
 
-<p>This topic talks about how to initialize a JavaScript component in the Magento 2 application. 
-It covers initializing JavaScript components in a <code>.phtml</code> template and jQuery widget initialization in a JS script. We strongly recommend that you use the described approaches and do not add inline JavaScript.</p>
+<p>This topic talks about how to initialize a <a href="/guides/v2.0/javascript-dev-guide/bk-javascript-dev-guide.html#js_terms">JavaScript component</a> in the Magento 2 application. 
+It covers initializing JavaScript components (including jQuery widgets) in <code>.phtml</code> templates and jQuery widgets initialization in JS script. We strongly recommend that you use the described approaches and do not add inline JavaScript.</p>
 
 <p><strong>Contents</strong></p>
 
@@ -718,7 +718,7 @@ Such a component does not require either <code>config</code> or <code>element</c
 
 <p>Where:</p>
 <ul>
-<li><code>&lt;element_selector&gt;</code> is a <a href="https://api.jquery.com/category/selectors/">selector</a> (in terms of jQuery) for the element on which the following JS components are initialized.</li>
+<li><code>&lt;element_selector&gt;</code> is a <a href="https://api.jquery.com/category/selectors/">selector</a> (in terms of querySelectorAll) for the element on which the following JS components are initialized.</li>
 <li><code>&lt;js_component1&gt;</code> and <code>&lt;js_component2&gt;</code> are the JS components being initialized on the element with the selector specified as <code>&lt;element_selector&gt;</code>.</li>
 <li><code>&lt;js_component3&gt;</code> is the JS component initialized with no binding to an element.</li> 
 </ul>
@@ -760,22 +760,25 @@ Such a component does not require either <code>config</code> or <code>element</c
 
 <h2 id="widget_init">Widget initialization in JS</h2>
 
-<p>To initialize a widget in JS code, use a notation similar to the following (the <a href="/guides/v2.0/frontend-dev-guide/javascript/widget_accordion.html" target="_blank">accordion</a> widget is initialized on the <code>#main-container</code> element as illustration):</p>
+<p>To initialize a widget in JS code, use a notation similar to the following (the <a href="/guides/v2.0/frontend-dev-guide/javascript/widget_accordion.html" target="_blank">accordion</a> widget is initialized on the <code>[data-role=example]</code> element as illustration):</p>
 
-<pre>
-$("#main-container").accordion();
-</pre>
+<p>&lt;%highlight js%&gt;
+$(‘[data-role=example]’).accordion();
+&lt;%endhighlight%&gt;</p>
 
 <p>To initialize a widget with options, use notation similar to the following:</p>
 
-<pre>
-$("#main-container").accordion({
-    header : "#title-1",
-    content : "#content-1",
-    trigger : "#trigger-1,
-    ajaxUrlElement: "a"
- });
-</pre>
+<p>&lt;%highlight js%&gt;
+$(function () { // to ensure that code evaluates on page load
+    $(‘[data-role=example]’)  // we expect that page contains markup <tag data-role="example">..</tag>
+        .accordion({ // now we can use “accordion” as jQuery plugin
+            header:  ‘[data-role=header]’,
+	    content: ‘[data-role=content]’,
+	    trigger: ‘[data-role=trigger]’,
+            ajaxUrlElement: ‘a’
+        });
+});
+&lt;%endhighlight%&gt;</p>
 
 
 
