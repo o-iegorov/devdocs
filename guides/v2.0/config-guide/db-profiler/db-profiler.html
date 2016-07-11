@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width initial-scale=1" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Magento ownership and permissions in development and production</title>
+	<title>Configure the database profiler</title>
 	<meta name="description" content="Magento 2 Developer Guide.
 ">
 
@@ -13,7 +13,7 @@
 
 	<link rel="stylesheet" href="/css/app.css" />
 	<link rel="stylesheet" href="/css/print.css" media="print"/>
-	<link rel="canonical" href="//guides/v2.0/config-guide/prod/prod_file-sys-perms.html">
+	<link rel="canonical" href="//guides/v2.0/config-guide/db-profiler/db-profiler.html">
 
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
@@ -167,9 +167,9 @@
 <!-- page-header -->
 <section class="page-intro">
 	<div class="container">
-		<h1 class="page-heading">Magento ownership and permissions in development and production</h1>
+		<h1 class="page-heading">Configure the database profiler</h1>
 		
-			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/config-guide/prod/prod_file-sys-perms.md" target="_blank">Edit this page on GitHub</a>
+			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/config-guide/db-profiler/db-profiler.md" target="_blank">Edit this page on GitHub</a>
 		
 		
 	</div>
@@ -885,7 +885,7 @@
 
 
 								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.0/config-guide/db-profiler/db-profiler.html">Configure the database profiler</a></li>
+									<li class="level1  active "><a class="nav-header" href="/guides/v2.0/config-guide/db-profiler/db-profiler.html">Configure the database profiler</a></li>
 									
 								
 
@@ -1095,7 +1095,7 @@
 
 									
 
-									<li class="level-2  active "><a href="/guides/v2.0/config-guide/prod/prod_file-sys-perms.html">Magento ownership and permissions in development and production</a></li>
+									<li class="level-2 "><a href="/guides/v2.0/config-guide/prod/prod_file-sys-perms.html">Magento ownership and permissions in development and production</a></li>
 
 									
 
@@ -1218,311 +1218,80 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 1 July 2016 (PDT)</i></p>
-		<h4 id="contents">Contents</h4>
-<ul>
-  <li><a href="#mage-owner">Overview of development and production file system ownership and permissions</a></li>
-  <li><a href="#mage-owner-one">Tasks for one Magento file system owner</a></li>
-  <li><a href="#mage-owner-two">Tasks for two Magento file system owners</a></li>
-  <li><a href="#mage-owner-umask">Optionally set <code>magento_umask</code></a></li>
-</ul>
+			<p align="right"><i>Updated: 11 July 2016 (PDT)</i></p>
+		<h2 id="about-the-database-profiler">About the database profiler</h2>
+<p>The Magento database profiler displays all queries executed on a page, including the time for each query and what parameters were executed.</p>
 
-<h2 id="mage-owner">Overview of development and production file system ownership and permissions</h2>
-<p>This section discusses how to set up the owner or owners of the Magento file system for a development and production system. Before you continue, review the concepts discussed in <a href="/guides/v2.0/install-gde/prereq/file-sys-perms-over.html">Overview of file system ownership and permissions</a>.</p>
+<h2 id="step-1-modify-the-deployment-configuration">Step 1: Modify the deployment configuration</h2>
+<p>Modify <code>&lt;your Magento install dir&gt;/app/etc/env.php</code> to add the following reference to the <a href="https://github.com/magento/magento2/blob/2.0/lib/internal/Magento/Framework/DB/Profiler.php" target="_blank">database profiler class</a>:</p>
 
-<p>This topic focuses on Magento development and production systems. If you’re installing Magento, see <a href="/guides/v2.0/install-gde/prereq/file-system-perms.html">Set pre-installation ownership and permissions</a>.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="s1">&#39;profiler&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;\Magento\Framework\DB\Profiler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;enabled&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="p">],</span></code></pre></div>
 
-<p>The sections that follow discuss requirements for one or two Magento file system owners. That means:</p>
+<p>An example follows:</p>
 
-<ul>
-  <li>
-    <p>One user:  Typically, shared hosting providers enable you to log in to the server as one user. This user can log in, transfer files using FTP, and this user also runs the web server.</p>
-  </li>
-  <li>
-    <p>Two users: You must have two users if you <em>cannot</em> log in to the server as, or switch to, the web server user. This type of setup is typical in private hosting or if you have your own Magento server.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="s1">&#39;db&#39;</span> <span class="o">=&gt;</span>
+  <span class="k">array</span> <span class="p">(</span>
+    <span class="s1">&#39;table_prefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;connection&#39;</span> <span class="o">=&gt;</span>
+    <span class="k">array</span> <span class="p">(</span>
+      <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span>
+      <span class="k">array</span> <span class="p">(</span>
+        <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dbname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;magento&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;magento&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;magento&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;model&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;engine&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;innodb&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;initStatements&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SET NAMES utf8;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;profiler&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;\Magento\Framework\DB\Profiler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;enabled&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="p">],</span>
+      <span class="p">),</span>
+    <span class="p">),</span>
+  <span class="p">),</span></code></pre></div>
 
-    <p>Instead, you have separate users:</p>
+<h2 id="step-2-configure-the-output">Step 2: Configure the output</h2>
+<p>Configure the output in your Magento application boostrap file; this might be <code>&lt;your Magento install dir&gt;/index.php</code> or it could be located in a web server virtual host configuration.</p>
 
-    <ul>
-      <li>
-        <p>The web server user, which runs the Magento Admin (including Setup Wizard) and storefront. </p>
-      </li>
-      <li>
-        <p>A <em>command-line user</em>, which is a local user account you can use to log in to the server. This user runs Magento cron jobs and command-line utilities.</p>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="mage-owner-one">Tasks for one Magento file system owner</h2>
-<div class="collapsible"><h4 class="collapsible-title">Click to show/hide content </h4><div class="collapsible-content"><p>To use the one-owner setup, you must log in to your Magento server as the same user that runs the web server. This is typical for shared hosting.</p>
-
-<h3 id="mage-owner-one-devel">Set up one owner for default or developer mode</h3>
-<p>In default or developer mode, the following directories must be writable by the user:</p>
-
-<ul>
-  <li><code>vendor</code> (Composer or compressed archive installation)</li>
-  <li><code>app/etc</code></li>
-  <li><code>pub/static</code></li>
-  <li><code>var</code></li>
-  <li>Any other static resources</li>
-  <li><code>var/generation</code></li>
-  <li><code>var/di</code></li>
-  <li><code>var/view_preprocessed</code></li>
-</ul>
-
-<p>You can set these permissions using either the command line or a file manager application provided by your shared hosting provider.</p>
-
-<h3 id="mage-owner-one-prod">Set up one owner for production mode</h3>
-<p>When you’re ready to deploy your site to production, you should remove write access from files in the following directories for improved security:</p>
+<p>The following example displays results in a three-column table:</p>
 
 <ul>
-  <li><code>vendor</code> (Composer or compressed archive installation)</li>
-  <li><code>app/code</code> (<abbr title="Developers who contribute code to the Magento 2 CE codebase">contributing developers</abbr> only)</li>
-  <li><code>app/etc</code></li>
-  <li><code>pub/static</code></li>
-  <li>Any other static resources</li>
-  <li><code>var/generation</code></li>
-  <li><code>var/di</code></li>
-  <li><code>var/view_preprocessed</code></li>
+  <li>Total time (displays the total amount of time to run all queries on the page)</li>
+  <li>SQL (displays all SQL queries; the row header displays the count of queries)</li>
+  <li>Query Params (displays the parameters for each SQL query)</li>
 </ul>
 
-<p>To update components, install new components, or to upgrade the Magento software, all of the preceding directories must be read-write.</p>
+<p>To configure the output, add the following after the <code>$bootstrap-&gt;run($app);</code> line in your bootstrap file:</p>
 
-<h4 id="make-files-and-directories-read-only">Make files and directories read-only</h4>
-<p>To remove writable permissions to files and directories from the web server user’s group:</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="sd">/** @var \Magento\Framework\App\ResourceConnection $res */</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nx">\Magento\Framework\App\ObjectManager</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Magento\Framework\App\ResourceConnection&#39;</span><span class="p">);</span>
+<span class="sd">/** @var Magento\Framework\DB\Profiler $profiler */</span>
+<span class="nv">$profiler</span> <span class="o">=</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">getConnection</span><span class="p">(</span><span class="s1">&#39;read&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getProfiler</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;table cellpadding=&#39;0&#39; cellspacing=&#39;0&#39; border=&#39;1&#39;&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;th&gt;Time &lt;br/&gt;[Total Time: &quot;</span><span class="o">.</span><span class="nv">$profiler</span><span class="o">-&gt;</span><span class="na">getTotalElapsedSecs</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot; secs]&lt;/th&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;th&gt;SQL [Total: &quot;</span><span class="o">.</span><span class="nv">$profiler</span><span class="o">-&gt;</span><span class="na">getTotalNumQueries</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot; queries]&lt;/th&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;th&gt;Query Params&lt;/th&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="p">;</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$profiler</span><span class="o">-&gt;</span><span class="na">getQueryProfiles</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
+    <span class="sd">/** @var Zend_Db_Profiler_Query $query*/</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;tr&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">,</span> <span class="nb">number_format</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getElapsedSecs</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">,</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">(),</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">,</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getQueryParams</span><span class="p">()),</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;/tr&gt;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;/table&gt;&quot;</span><span class="p">;</span></code></pre></div>
 
-<ol>
-  <li>Log in to your Magento server.</li>
-  <li>Change to your Magento installation directory.</li>
-  <li>
-    <p>Enter the following command to change to production mode:</p>
+<h2 id="step-3-view-the-results">Step 3: View the results</h2>
+<p>Go to any page in your storefront or Magento Admin to view the results. A sample follows:</p>
 
-    <pre><code>php bin/magento deploy:mode:set production
-</code></pre>
-  </li>
-  <li>
-    <p>Enter the following commands:</p>
-
-    <pre><code>find var vendor pub/static app/etc var/generation var/di var/view_preprocessed -type f -exec chmod u-w {} \;
-find var vendor pub/static app/etc var/generation var/di var/view_preprocessed -type d -exec chmod u-w {} \;
-chmod o-rwx app/etc/env.php
-chmod u+x bin/magento
-</code></pre>
-
-    <p>You can optionally enter all the preceding commands as one command:</p>
-
-    <pre><code>find pub/static app/etc var/generation var/di var/view_preprocessed -type f -exec chmod u-w {} \; &amp;&amp; find pub/static app/etc var/generation var/di var/view_preprocessed -type d -exec chmod u-w {} \; &amp;&amp; chmod o-rwx app/etc/env.php &amp;&amp; chmod u+x bin/magento
-</code></pre>
-
-    <div class="bs-callout bs-callout-info" id="info">
-  		<p>If you're a <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr>, replace <code>vendor</code> with <code>app/code</code> in the preceding commands. (A <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr> <a href="/guides/v2.0/install-gde/prereq/dev_install.html">clones the Magento 2 GitHub repository</a> so they can contribute to our codebase.)</p>
-</div>
-  </li>
-</ol>
-
-<h4 id="make-files-and-directories-writable">Make files and directories writable:</h4>
-<p>To make files and directories writable so you can update components and upgrade the Magento software:</p>
-
-<ol>
-  <li>Log in to your Magento server.</li>
-  <li>Change to your Magento installation directory.</li>
-  <li>
-    <p>Enter the following commands:</p>
-
-    <pre><code>chmod -R u+w .
-</code></pre>
-
-    <div class="bs-callout bs-callout-info" id="info">
-  		<p>If you're a <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr>, replace <code>vendor</code> with <code>app/code</code> in the preceding commands. (A <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr> <a href="/guides/v2.0/install-gde/prereq/dev_install.html">clones the Magento 2 GitHub repository</a> so they can contribute to our codebase.)</p>
-</div>
-  </li>
-</ol>
-</div></div>
-
-<h2 id="mage-owner-two">Tasks for two Magento file system owners</h2>
-<div class="collapsible"><h4 class="collapsible-title">Click to show/hide content </h4><div class="collapsible-content"><p>If you use your own server (including a hosting provider’s private server setup), there are two users:</p>
-
-<ul>
-  <li>
-    <p>The web server user, which runs the Magento Admin (including the Setup Wizard) and storefront.</p>
-
-    <p>Linux systems typically do not provide a shell for this user; you cannot log in to the Magento server as, or switch to, the web server user.</p>
-  </li>
-  <li>
-    <p>The command-line user, which you log in to your Magento server as or switch to.</p>
-
-    <p>Magento uses this user to run Magento CLI commands and cron.</p>
-
-    <div class="bs-callout bs-callout-info" id="info">
-    <p>The command-line user is also referred to as the <em>Magento file system owner</em>.</p>
-</div>
-  </li>
-</ul>
-
-<p>Because these users require access to the same files, we recommend you create a <a href="/guides/v2.0/install-gde/prereq/file-system-perms.html#mage-owner-about-group">shared group</a> to which they both belong.</p>
-
-<p>See one of the following sections:</p>
-
-<ul>
-  <li><a href="#mage-owner-two-devel">Two Magento file system owners in developer or default mode</a></li>
-  <li><a href="#mage-owner-two-prod">Two Magento file system owners in production mode</a></li>
-</ul>
-
-<h3 id="mage-owner-two-devel">Set up two owners for default or developer mode</h3>
-<p>Files in the following directories must be writable by both users in developer and default mode:</p>
-
-<ul>
-  <li><code>var</code></li>
-  <li><code>pub/static</code></li>
-  <li><code>pub/media</code></li>
-  <li><code>app/etc</code></li>
-</ul>
-
-<p>Set the <a href="http://linuxg.net/how-to-set-the-setuid-and-setgid-bit-for-files-in-linux-and-unix/" target="_blank"><code>setgid</code></a> bit on directories so permissions always inherit from the parent directory. </p>
-
-<div class="bs-callout bs-callout-info" id="info">
- 	<p><code>setgid</code> applies to directories only, <em>not</em> to files.</p>
-</div>
-
-<p>In addition, the directories should be writable by the web server group. Because content might already exist in these directories, add the permissions recursively.</p>
-
-<h4 id="set-permissions-and-setgid">Set permissions and <code>setgid</code></h4>
-<p>To set <code>setgid</code> and permissions for developer mode:</p>
-
-<ol>
-  <li>Log in to your Magento server as, or switch to, the Magento file system owner.</li>
-  <li>
-    <p>Enter the following commands in the order shown:</p>
-
-    <pre><code>cd &lt;your Magento install dir&gt;
-find var pub/static pub/media app/etc -type f -exec chmod g+w {} \;
-find var pub/static pub/media app/etc -type d -exec chmod g+ws {} \;
-</code></pre>
-  </li>
-</ol>
-
-<h3 id="mage-owner-two-prod">Two Magento file system owners in production mode</h3>
-<p>When you’re ready to deploy your site to production, you should remove write access from files in the following directories for improved security:</p>
-
-<ul>
-  <li><code>vendor</code> (Composer or compressed archive installation)</li>
-  <li><code>app/code</code> (<abbr title="Developers who contribute code to the Magento 2 CE codebase">contributing developers</abbr> only)</li>
-  <li><code>app/etc</code></li>
-  <li><code>lib</code></li>
-  <li><code>pub/static</code></li>
-  <li>Any other static resources</li>
-  <li><code>var/generation</code></li>
-  <li><code>var/di</code></li>
-  <li><code>var/view_preprocessed</code></li>
-</ul>
-
-<h4 id="make-files-and-directories-read-only">Make files and directories read-only</h4>
-<p>To remove writable permissions to files and directories from the web server user’s group:</p>
-
-<ol>
-  <li>Log in to your Magento server.</li>
-  <li>Change to your Magento installation directory.</li>
-  <li>
-    <p>As the Magento file system owner, enter the following command to change to production mode:</p>
-
-    <pre><code>php bin/magento deploy:mode:set production
-</code></pre>
-  </li>
-  <li>
-    <p>Enter the following commands as a user with <code>root</code> privileges:</p>
-
-    <pre><code>find pub/static app/etc var/generation var/di var/view_preprocessed -type f -exec chmod g-w {} \;
-find pub/static app/etc var/generation var/di var/view_preprocessed -type d -exec chmod g-w {} \;
-chmod o-rwx app/etc/env.php
-</code></pre>
-
-    <p>You can optionally enter all the preceding commands as one command:</p>
-
-    <pre><code>find pub/static app/etc var/generation var/di var/view_preprocessed -type f -exec chmod g-w {} \; &amp;&amp; find pub/static app/etc var/generation var/di var/view_preprocessed -type d -exec chmod g-w {} \; &amp;&amp; chmod o-rwx app/etc/env.php
-</code></pre>
-
-    <div class="bs-callout bs-callout-info" id="info">
-  		<p>If you're a <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr>, replace <code>vendor</code> with <code>app/code</code> in the preceding commands. (A <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr> <a href="/guides/v2.0/install-gde/prereq/dev_install.html">clones the Magento 2 GitHub repository</a> so they can contribute to our codebase.)</p>
-</div>
-  </li>
-</ol>
-
-<h4 id="make-files-and-directories-writable">Make files and directories writable:</h4>
-<p>To make files and directories writable so you can update components and upgrade the Magento software:</p>
-
-<ol>
-  <li>Log in to your Magento server.</li>
-  <li>Change to your Magento installation directory.</li>
-  <li>
-    <p>Enter the following commands:</p>
-
-    <pre><code>find var vendor lib pub/static pub/media app/etc -type f -exec chmod g+w {} \;
-find var vendor lib pub/static pub/media app/etc -type d -exec chmod g+w {} \;
-chmod o+rwx app/etc/env.php
-</code></pre>
-
-    <p>You can optionally enter all the preceding commands as one command as follows:</p>
-
-    <pre><code>find var vendor lib pub/static pub/media app/etc -type f -exec chmod g+w {} \; &amp;&amp; find var vendor lib pub/static pub/media app/etc -type d -exec chmod g+w {} \; &amp;&amp; chmod o+rwx app/etc/env.php
-</code></pre>
-
-    <div class="bs-callout bs-callout-info" id="info">
-  		<p>If you're a <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr>, replace <code>vendor</code> with <code>app/code</code> in the preceding commands. (A <abbr title="A developer who contributes code to the Magento 2 CE codebase">contributing developer</abbr> <a href="/guides/v2.0/install-gde/prereq/dev_install.html">clones the Magento 2 GitHub repository</a> so they can contribute to our codebase.)</p>
-</div>
-  </li>
-</ol>
-</div></div>
-
-<div>
-
-  <h2 id="mage-owner-umask">Optionally set <code>magento_umask</code></h2>
-  <p>The web server group must have write permissions to certain directories in the Magento file system; however, you might want tighter security, especially in production. We provide the flexibility for you to further restrict those permissions using a <a href="http://www.cyberciti.biz/tips/understanding-linux-unix-umask-value-usage.html" target="_blank">umask</a>.</p>
-
-  <p>Our solution is to enable you to optionally create a file named <code>magento_umask</code> in your Magento root directory that restricts permissions for the web server group and everyone else. </p>
-
-  <div class="bs-callout bs-callout-info" id="info">
-  <p>We recommend changing the umask on a one-user or shared hosting system only. If you have a private Magento server, the group must have write access to the Magento file system; the umask removes write access from the group.</p>
-</div>
-
-  <p>The default umask (with no <code>magento_umask</code> specified) is <code>002</code>, which means:</p>
-
-  <ul>
-    <li>
-      <p>775 for directories, which means full control by the user, full control by the group, and enables everyone to traverse the directory. These permissions are typically required by shared hosting providers.</p>
-    </li>
-    <li>
-      <p>664 for files, which means writable by the user, writable by the group, and read-only for everyone else</p>
-    </li>
-  </ul>
-
-  <p>A common suggestion is to use a value of <code>022</code> in the <code>magento_umask</code> file, which means:</p>
-
-  <ul>
-    <li>755 for directories: full control for the user, and everyone else can traverse directories.</li>
-    <li>644 for files: read-write permissions for the user, and read-only for everyone else.</li>
-  </ul>
-
-  <p>To set <code>magento_umask</code>:</p>
-
-  <ol>
-    <li>Log in to your Magento server, or switch to, the <a href="/guides/v2.0/install-gde/prereq/file-sys-perms-over.html">Magento file system owner</a>.</li>
-    <li>
-      <p>Set the value of <code>magento_umask</code>:</p>
-
-      <ol>
-        <li>Use a text editor to create a new file <code>&lt;your Magento install dir&gt;/magento_umask</code></li>
-        <li>
-          <p>Set <code>magento_umask</code> to the desired value.</p>
-
-          <p>For example, <code>022</code></p>
-        </li>
-      </ol>
-    </li>
-    <li>Save your changes to <code>magento_umask</code> and exit the text editor.</li>
-  </ol>
-
-</div>
+<p><img src="/common/images/config_db-profiler-results.png" alt="Sample database profiler results" width="800px" /></p>
 
 
 		</div>
