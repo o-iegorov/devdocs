@@ -953,13 +953,80 @@ Each constraint name must be globally unique in Magento application and must be 
 
 <p>Step 3. Create <code>&lt;magento2&gt;/dev/tests/functional/tests/app/Magento/Widget/Test/Constraint/AssertWidgetInGrid.php</code> with <a href="#mtf_constraint_assert">required structure</a></p>
 
-<script src="https://gist.github.com/dshevtsov/c9d9e77e4d48af881f69.js"></script>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">Magento\Widget\Test\Constraint</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Magento\Mtf\Constraint\AbstractConstraint</span><span class="p">;</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Assert widget is available in widget grid.</span>
+<span class="sd"> */</span>
+<span class="k">class</span> <span class="nc">AssertWidgetInGrid</span> <span class="k">extends</span> <span class="nx">AbstractConstraint</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Assert widget availability in widget grid.</span>
+<span class="sd">     * </span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">processAssert</span><span class="p">()</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Returns a string representation of the object.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return string</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">toString</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;Widget is present in widget grid.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 
 <p>Step 4. Implement assertion in <code>processAssert()</code></p>
 
 <p><strong>Assertion logic</strong>: Take title of the widget from the widget <a href="/guides/v2.1/mtf/mtf_entities/mtf_fixture.html">fixture</a>, open the page with a grid, check if the grid has our title.</p>
 
-<script src="https://gist.github.com/dshevtsov/c1e2a8437e0d2b2036bd.js"></script>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">Magento\Widget\Test\Constraint</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Magento\Widget\Test\Fixture\Widget</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Magento\Widget\Test\Page\Adminhtml\WidgetInstanceIndex</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Magento\Mtf\Constraint\AbstractConstraint</span><span class="p">;</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Assert widget is available in widget grid.</span>
+<span class="sd"> */</span>
+<span class="k">class</span> <span class="nc">AssertWidgetInGrid</span> <span class="k">extends</span> <span class="nx">AbstractConstraint</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Assert widget availability in widget grid.</span>
+<span class="sd">     * </span>
+<span class="sd">     * @return void</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">processAssert</span><span class="p">(</span><span class="nx">Widget</span> <span class="nv">$widget</span><span class="p">,</span> <span class="nx">WidgetInstanceIndex</span> <span class="nv">$widgetInstanceIndex</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$widget</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()];</span>
+        <span class="nv">$widgetInstanceIndex</span><span class="o">-&gt;</span><span class="na">open</span><span class="p">();</span>
+        <span class="nx">\PHPUnit_Framework_Assert</span><span class="o">::</span><span class="na">assertTrue</span><span class="p">(</span>
+            <span class="nv">$widgetInstanceIndex</span><span class="o">-&gt;</span><span class="na">getWidgetGrid</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">isRowVisible</span><span class="p">(</span><span class="nv">$filter</span><span class="p">),</span>
+            <span class="s1">&#39;Widget with title \&#39;&#39;</span> <span class="o">.</span> <span class="nv">$widget</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;\&#39; is absent in Widget grid.&#39;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Returns a string representation of the object.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return string</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">toString</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;Widget is present in widget grid.&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 
 <h2 id="mtf_constraint_use">How to use constraint</h2>
 

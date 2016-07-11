@@ -839,7 +839,38 @@ Usage of docblock is a good practice for your new tests. See <a href="https://gi
   <li>saving of the edited product</li>
 </ul>
 
-<script src="https://gist.github.com/dshevtsov/27fae7c912604030e574.js"></script>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * Run update product simple entity test.</span>
+<span class="sd"> *</span>
+<span class="sd"> * @param CatalogProductSimple $initialProduct</span>
+<span class="sd"> * @param CatalogProductSimple $product</span>
+<span class="sd"> * @param string $configData</span>
+<span class="sd"> * @return array</span>
+<span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">test</span><span class="p">(</span><span class="nx">CatalogProductSimple</span> <span class="nv">$initialProduct</span><span class="p">,</span> <span class="nx">CatalogProductSimple</span> <span class="nv">$product</span><span class="p">,</span> <span class="nv">$configData</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">configData</span> <span class="o">=</span> <span class="nv">$configData</span><span class="p">;</span>
+    <span class="c1">// Preconditions</span>
+    <span class="nv">$initialProduct</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">();</span>
+    <span class="nv">$initialCategory</span> <span class="o">=</span> <span class="nv">$initialProduct</span><span class="o">-&gt;</span><span class="na">hasData</span><span class="p">(</span><span class="s1">&#39;category_ids&#39;</span><span class="p">)</span>
+        <span class="o">?</span> <span class="nv">$initialProduct</span><span class="o">-&gt;</span><span class="na">getDataFieldConfig</span><span class="p">(</span><span class="s1">&#39;category_ids&#39;</span><span class="p">)[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getCategories</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
+    <span class="nv">$category</span> <span class="o">=</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">hasData</span><span class="p">(</span><span class="s1">&#39;category_ids&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">getCategoryIds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="o">?</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">getDataFieldConfig</span><span class="p">(</span><span class="s1">&#39;category_ids&#39;</span><span class="p">)[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getCategories</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="o">:</span> <span class="nv">$initialCategory</span><span class="p">;</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">objectManager</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span>
+        <span class="s1">&#39;Magento\Config\Test\TestStep\SetupConfigurationStep&#39;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s1">&#39;configData&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configData</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+    <span class="c1">// Steps</span>
+    <span class="nv">$filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sku&#39;</span> <span class="o">=&gt;</span> <span class="nv">$initialProduct</span><span class="o">-&gt;</span><span class="na">getSku</span><span class="p">()];</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productGrid</span><span class="o">-&gt;</span><span class="na">open</span><span class="p">();</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productGrid</span><span class="o">-&gt;</span><span class="na">getProductGrid</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">searchAndOpen</span><span class="p">(</span><span class="nv">$filter</span><span class="p">);</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">editProductPage</span><span class="o">-&gt;</span><span class="na">getProductForm</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fill</span><span class="p">(</span><span class="nv">$product</span><span class="p">);</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">editProductPage</span><span class="o">-&gt;</span><span class="na">getFormPageActions</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="nv">$category</span><span class="p">];</span>
+<span class="p">}</span></code></pre></div>
 
 <p>A returned array is available in constraints within current variation.</p>
 
