@@ -618,7 +618,7 @@
 		<h2 id="js_init_overview">Overview</h2>
 
 <p>This topic talks about how to initialize a <a href="/guides/v2.0/javascript-dev-guide/bk-javascript-dev-guide.html#js_terms">JavaScript component</a> in the Magento 2 application. 
-It covers initializing JavaScript components (including jQuery widgets) in <code>.phtml</code> templates and jQuery widgets initialization in JS script. We strongly recommend that you use the described approaches and do not add inline JavaScript.</p>
+It covers initializing JavaScript components (including jQuery widgets) in <code>.phtml</code> templates and JS scripts. We strongly recommend that you use the described approaches and do not add inline JavaScript.</p>
 
 <p><strong>Contents</strong></p>
 
@@ -635,7 +635,7 @@ It covers initializing JavaScript components (including jQuery widgets) in <code
       <li><a href="#init_script">Imperative initialization</a></li>
     </ul>
   </li>
-  <li><a href="#widget_init">Widget initialization in JS</a></li>
+  <li><a href="#js_widget_init">JS components initialization in JS</a></li>
 </ul>
 
 <h2 id="init_phtml">Initialize a JS component in a PHTML template</h2>
@@ -762,27 +762,46 @@ Such a component does not require either <code>config</code> or <code>element</c
 <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span></code></pre></div>
 
-<h2 id="widget_init">Widget initialization in JS</h2>
+<h2 id="js_widget_init">JS components initialization in JS</h2>
 
-<p>To initialize a widget in JS code, use a notation similar to the following (the <a href="/guides/v2.0/frontend-dev-guide/javascript/widget_accordion.html" target="_blank">accordion</a> widget is initialized on the <code>[data-role=example]</code> element as illustration):</p>
+<p>To initialize a widget in JS code, use a notation similar to the following <a href="/guides/v2.0/frontend-dev-guide/javascript/widget_accordion.html">accordion</a> widget is initialized on the <code>[data-role=example]</code> element as illustration):</p>
 
-<p>&lt;%highlight js%&gt;
-$(‘[data-role=example]’).accordion();
-&lt;%endhighlight%&gt;</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-role=example]&#39;</span><span class="p">).</span><span class="nx">accordion</span><span class="p">();</span></code></pre></div>
 
 <p>To initialize a widget with options, use notation similar to the following:</p>
 
-<p>&lt;%highlight js%&gt;
-$(function () { // to ensure that code evaluates on page load
-    $(‘[data-role=example]’)  // we expect that page contains markup <tag data-role="example">..</tag>
-        .accordion({ // now we can use “accordion” as jQuery plugin
-            header:  ‘[data-role=header]’,
-	    content: ‘[data-role=content]’,
-	    trigger: ‘[data-role=trigger]’,
-            ajaxUrlElement: ‘a’
-        });
-});
-&lt;%endhighlight%&gt;</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="c1">// to ensure that code evaluates on page load</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-role=example]&#39;</span><span class="p">)</span>  <span class="c1">// we expect that page contains markup &lt;tag data-role=&quot;example&quot;&gt;..&lt;/tag&gt;</span>
+        <span class="p">.</span><span class="nx">accordion</span><span class="p">({</span> <span class="c1">// now we can use &quot;accordion&quot; as jQuery plugin</span>
+            <span class="nx">header</span><span class="o">:</span>  <span class="s1">&#39;[data-role=header]&#39;</span><span class="p">,</span>
+	    <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;[data-role=content]&#39;</span><span class="p">,</span>
+	    <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;[data-role=trigger]&#39;</span><span class="p">,</span>
+            <span class="nx">ajaxUrlElement</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span>
+        <span class="p">});</span>
+<span class="p">});</span></code></pre></div>
+
+<p>In a similar way, you can initialize any  JS component that a returns callback function accepting a <code>config</code> object and <code>element</code> (a DOM node).</p>
+
+<p>For example:</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span> <span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mage/gallery/gallery&#39;</span>
+<span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">Gallery</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="c1">// to ensure that code evaluates on page load</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-role=example]&#39;</span><span class="p">)</span>  <span class="c1">// we expect that page contains markup &lt;tag data-role=&quot;example&quot;&gt;..&lt;/tag&gt;</span>
+            <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">Gallery</span><span class="p">({</span>
+                    <span class="nx">options</span><span class="o">:</span>  <span class="p">{},</span>
+                    <span class="nx">data</span><span class="o">:</span> <span class="p">[{</span>
+                        <span class="nx">img</span><span class="o">:</span> <span class="s1">&#39;https://c2.staticflickr.com/8/7077/27935031965_facd03b4cb_b_d.jpg&#39;</span>
+                    <span class="p">}],</span>
+                    <span class="nx">fullscreen</span><span class="o">:</span> <span class="p">{}</span>
+                <span class="p">},</span> <span class="nx">element</span><span class="p">);</span>  <span class="c1">// &#39;element&#39; is simgle DOM node. </span>
+            <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></div>
 
 
 
