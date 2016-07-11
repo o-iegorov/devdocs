@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width initial-scale=1" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>How Varnish caching works</title>
+	<title>Configure the database profiler</title>
 	<meta name="description" content="Magento 2 Developer Guide.
 ">
 
@@ -13,7 +13,7 @@
 
 	<link rel="stylesheet" href="/css/app.css" />
 	<link rel="stylesheet" href="/css/print.css" media="print"/>
-	<link rel="canonical" href="//guides/v2.1/config-guide/varnish/use-varnish-cache-how.html">
+	<link rel="canonical" href="//guides/v2.1/config-guide/db-profiler/db-profiler.html">
 
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
@@ -167,9 +167,9 @@
 <!-- page-header -->
 <section class="page-intro">
 	<div class="container">
-		<h1 class="page-heading">How Varnish caching works</h1>
+		<h1 class="page-heading">Configure the database profiler</h1>
 		
-			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/config-guide/varnish/use-varnish-cache-how.md" target="_blank">Edit this page on GitHub</a>
+			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/config-guide/db-profiler/db-profiler.md" target="_blank">Edit this page on GitHub</a>
 		
 		
 	</div>
@@ -802,7 +802,7 @@
 
 									
 
-									<li class="level-2  active "><a href="/guides/v2.1/config-guide/varnish/use-varnish-cache-how.html">How Varnish caching works</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/config-guide/varnish/use-varnish-cache-how.html">How Varnish caching works</a></li>
 
 									
 
@@ -885,7 +885,7 @@
 
 
 								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.1/config-guide/db-profiler/db-profiler.html">Configure the database profiler</a></li>
+									<li class="level1  active "><a class="nav-header" href="/guides/v2.1/config-guide/db-profiler/db-profiler.html">Configure the database profiler</a></li>
 									
 								
 
@@ -1273,70 +1273,80 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 22 June 2016 (PDT)</i></p>
-		<h4 id="contents">Contents</h4>
+			<p align="right"><i>Updated: 11 July 2016 (PDT)</i></p>
+		<h2 id="about-the-database-profiler">About the database profiler</h2>
+<p>The Magento database profiler displays all queries executed on a page, including the time for each query and what parameters were executed.</p>
+
+<h2 id="step-1-modify-the-deployment-configuration">Step 1: Modify the deployment configuration</h2>
+<p>Modify <code>&lt;your Magento install dir&gt;/app/etc/env.php</code> to add the following reference to the <a href="https://github.com/magento/magento2/blob/2.0/lib/internal/Magento/Framework/DB/Profiler.php" target="_blank">database profiler class</a>:</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="s1">&#39;profiler&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;\Magento\Framework\DB\Profiler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;enabled&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="p">],</span></code></pre></div>
+
+<p>An example follows:</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="s1">&#39;db&#39;</span> <span class="o">=&gt;</span>
+  <span class="k">array</span> <span class="p">(</span>
+    <span class="s1">&#39;table_prefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;connection&#39;</span> <span class="o">=&gt;</span>
+    <span class="k">array</span> <span class="p">(</span>
+      <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span>
+      <span class="k">array</span> <span class="p">(</span>
+        <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dbname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;magento&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;magento&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;magento&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;model&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;engine&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;innodb&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;initStatements&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SET NAMES utf8;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;profiler&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;\Magento\Framework\DB\Profiler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;enabled&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="p">],</span>
+      <span class="p">),</span>
+    <span class="p">),</span>
+  <span class="p">),</span></code></pre></div>
+
+<h2 id="step-2-configure-the-output">Step 2: Configure the output</h2>
+<p>Configure the output in your Magento application boostrap file; this might be <code>&lt;your Magento install dir&gt;/index.php</code> or it could be located in a web server virtual host configuration.</p>
+
+<p>The following example displays results in a three-column table:</p>
+
 <ul>
-  <li><a href="#config-varnish-cache-over">Overview of Varnish caching</a></li>
-  <li><a href="#config-varnish-cache-browser">Caching by browser request</a></li>
-  <li><a href="#config-varnish-cache-etag">How Magento uses Etag</a></li>
+  <li>Total time (displays the total amount of time to run all queries on the page)</li>
+  <li>SQL (displays all SQL queries; the row header displays the count of queries)</li>
+  <li>Query Params (displays the parameters for each SQL query)</li>
 </ul>
 
-<h2 id="config-varnish-cache-over">Overview of Varnish caching</h2>
-<p>This topic discusses how Varnish caching works with Magento using:</p>
+<p>To configure the output, add the following after the <code>$bootstrap-&gt;run($app);</code> line in your bootstrap file:</p>
 
-<ul>
-  <li><a href="https://github.com/magento/magento2/blob/2.0/nginx.conf.sample" target="_blank"><code>nginx.conf.sample</code></a> from the Magento 2 GitHub repository</li>
-  <li><code>.htaccess</code> distributed configuration file for Apache provided with Magento</li>
-  <li><code>default.vcl</code> configuration for Varnish generated using the <a href="/guides/v2.1/config-guide/varnish/config-varnish-magento.html">Magento Admin</a></li>
-</ul>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="sd">/** @var \Magento\Framework\App\ResourceConnection $res */</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nx">\Magento\Framework\App\ObjectManager</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Magento\Framework\App\ResourceConnection&#39;</span><span class="p">);</span>
+<span class="sd">/** @var Magento\Framework\DB\Profiler $profiler */</span>
+<span class="nv">$profiler</span> <span class="o">=</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">getConnection</span><span class="p">(</span><span class="s1">&#39;read&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getProfiler</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;table cellpadding=&#39;0&#39; cellspacing=&#39;0&#39; border=&#39;1&#39;&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;th&gt;Time &lt;br/&gt;[Total Time: &quot;</span><span class="o">.</span><span class="nv">$profiler</span><span class="o">-&gt;</span><span class="na">getTotalElapsedSecs</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot; secs]&lt;/th&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;th&gt;SQL [Total: &quot;</span><span class="o">.</span><span class="nv">$profiler</span><span class="o">-&gt;</span><span class="na">getTotalNumQueries</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot; queries]&lt;/th&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;th&gt;Query Params&lt;/th&gt;&quot;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="p">;</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$profiler</span><span class="o">-&gt;</span><span class="na">getQueryProfiles</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
+    <span class="sd">/** @var Zend_Db_Profiler_Query $query*/</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;tr&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">,</span> <span class="nb">number_format</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getElapsedSecs</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">,</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">(),</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">,</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getQueryParams</span><span class="p">()),</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;/tr&gt;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">echo</span> <span class="s2">&quot;&lt;/table&gt;&quot;</span><span class="p">;</span></code></pre></div>
 
-<div class="bs-callout bs-callout-info" id="info">
-	<p>This topic covers only the default options in the preceding list. There are many other ways to configure caching in complex scenarios (for example, using a Content Delivery Network); those methods are beyond the scope of this guide.</p>
-</div>
+<h2 id="step-3-view-the-results">Step 3: View the results</h2>
+<p>Go to any page in your storefront or Magento Admin to view the results. A sample follows:</p>
 
-<p>On the first browser request, cacheable assets are delivered to the client browser from Varnish and cached on the browser.  </p>
-
-<p>In addition, Varnish uses an Entity Tag (<a href="https://en.wikipedia.org/wiki/HTTP_ETag" target="_blank">ETag</a>) for static assets. The ETag provides a way to determine when static files change on the server. As a result, static assets are sent to the client when they change on the server—either on a new request from a browser or when the client refreshes the browser cache, typically by pressing F5 or Control+F5.</p>
-
-<p>More detail is provided in the sections that follow.</p>
-
-<h2 id="config-varnish-cache-browser">Caching by browser request</h2>
-<p>This section uses a browser inspector to show how assets are delivered to the browser in the first request and afterward loaded from the browser’s local cache.</p>
-
-<h3 id="config-varnish-cache-browser-first">First browser request</h3>
-<p><code>nginx.conf.sample</code> and <code>.htaccess</code> provide options for client caching. When the first request is made from a browser for a cacheable object, Varnish delivers it to the client.</p>
-
-<p>The following figure shows an example using a browser inspector.</p>
-
-<p><img src="/common/images/varnish_apache_first_visit.png" alt="The first time a request is made for a cacheable object, Varnish delivers it to the browser" /></p>
-
-<p>The preceding example shows a request for the storefront main page (<code>m2_ce_my</code>). CSS and JavaScript assets are cached on the client browser.</p>
-
-<div class="bs-callout bs-callout-info" id="info">
-	<p>Most static assets have an HTTP 200 (OK) status code, indicating the asset was retrieved from the server.</p>
-</div>
-
-<h3 id="config-varnish-cache-browser-second">Second browser request</h3>
-<p>If the same browser requests the same page again, these assets are delivered from the local browser cache, as the following figure shows.</p>
-
-<p><img src="/common/images/varnish_apache_second_visit.png" alt="The next time the same object is requested, assets load from the local browser cache" /></p>
-
-<p>Note the difference in response time between the first and second request. Again, static assets have a 200 (OK) response code because they’re delivered from local cache for the first time.</p>
-
-<h2 id="config-varnish-cache-etag">How Magento uses Etag</h2>
-<p>The following example shows response headers for a particular static asset. </p>
-
-<p><img src="/common/images/varnish_etag.png" alt="The ETag makes it easier to determine whether a static asset has changed or not" /></p>
-<p><code>calendar.css</code> has an ETag response header which means the CSS file on the client browser can be compared to the one on the server.</p>
-
-<p>In addition, static assets are returned with a 304 (Not Modified) HTTP status code, as the following figure shows.</p>
-
-<p><img src="/common/images/varnish_304.png" alt="The HTTP 304 (Not Modified) response code indicates the static asset in the local cache is the same as on the server" /></p>
-
-<p>The 304 status code occurs because the user invalidated their local cache and the content on the server did not change. Because of the 304 status code, the static asset <em>content</em> is not transferred; only HTTP headers are downloaded to the browser. </p>
-
-<p>If the content changes on the server, the client downloads the static asset with an HTTP 200 (OK) status code and a new ETag.</p>
-
+<p><img src="/common/images/config_db-profiler-results.png" alt="Sample database profiler results" width="800px" /></p>
 
 
 		</div>
