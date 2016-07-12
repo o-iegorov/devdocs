@@ -771,11 +771,11 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 22 June 2016 (PDT)</i></p>
+			<p align="right"><i>Updated: 12 July 2016 (PDT)</i></p>
 		<h2 id="install-trouble-pdo">Setup Wizard installation stops at about 70%</h2>
 <p>During installation using the Setup Wizard, the process stops at about 70% (with or without sample data). No errors display on the screen.</p>
 
-<p>One common issue is the PHP setting for <a href="http://php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank"><code>max_execution_time</code></a>. </p>
+<p>One common issue is the PHP setting for <a href="http://php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank"><code>max_execution_time</code></a>. Also increase the timeout value for Varnish and nginx if used.</p>
 
 <h3 id="solution">Solution:</h3>
 <p>If you encounter this error, we recommend you increase the value in <code>php.ini</code> to 18000 (30 minutes). You can use a larger or smaller value if it helps.</p>
@@ -793,8 +793,27 @@
 
     <ul>
       <li>CentOS: <code>service httpd restart</code></li>
-      <li>Ubuntu: <code>service apache2 restart</code>	</li>
+      <li>Ubuntu: <code>service apache2 restart</code></li>
     </ul>
+  </li>
+  <li>
+    <p>If you use Nginx, use <code>nginx.conf.sample</code> or add a timeout settings in nginx host config file to the <code>location ~ ^/setup/index.php</code> section as follows:</p>
+
+    <pre><code> location ~ ^/setup/index.php {
+     .....................
+     fastcgi_read_timeout 600s;
+ 	fastcgi_connect_timeout 600s;
+ }
+</code></pre>
+  </li>
+  <li>
+    <p>If you use Varnish, edit <code>default.vcl</code> and add a timeout limit value to the <code>backend</code> stanza as follows:</p>
+
+    <pre><code> backend default {
+       .....................
+       .first_byte_timeout = 600s;
+ }
+</code></pre>
   </li>
 </ol>
 
