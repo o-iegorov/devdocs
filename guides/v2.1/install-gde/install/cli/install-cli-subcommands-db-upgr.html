@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width initial-scale=1" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Enable or disable maintenance mode</title>
+	<title>Update the Magento database schema and data</title>
 	<meta name="description" content="Magento 2 Developer Guide.
 ">
 
@@ -13,7 +13,7 @@
 
 	<link rel="stylesheet" href="/css/app.css" />
 	<link rel="stylesheet" href="/css/print.css" media="print"/>
-	<link rel="canonical" href="//guides/v2.0/install-gde/install/cli/install-cli-subcommands-maint.html">
+	<link rel="canonical" href="//guides/v2.1/install-gde/install/cli/install-cli-subcommands-db-upgr.html">
 
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
@@ -41,13 +41,13 @@
 			<div class="main-site-name">
 				<a class="logo pull-left" href="/"> </a>
 				<div class="sub-site-name">
-					<a href="/">Developer Documentation (2.0)</a>
+					<a href="/">Developer Documentation (2.1)</a>
 				</div>
 			</div>
 			
 <div class="version-switcher dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">
-		Version 2.0
+		Version 2.1
 	</button>
 
 
@@ -78,64 +78,64 @@
          <li class="first">
             <a href="#">Get Started</a>
             <ul class="menu nav">
-               <li class="leaf"><a href="/guides/v2.0/architecture/bk-architecture.html">Magento Architecture</a></li>
-               <li class="first leaf"><a href="/guides/v2.0/release-notes/bk-release-notes.html">Release Information</a></li>
+               <li class="leaf"><a href="/guides/v2.1/architecture/bk-architecture.html">Magento Architecture</a></li>
+               <li class="first leaf"><a href="/guides/v2.1/release-notes/bk-release-notes.html">Release Information</a></li>
                
             </ul>
          </li>
          <li class="first">
             <a href="#">System Administrator</a>
             <ul class="menu nav">
-               <li class="first leaf"><a href="/guides/v2.0/install-gde/bk-install-guide.html">Installation Guide</a></li>
-               <li class="leaf"><a href="/guides/v2.0/comp-mgr/bk-compman-upgrade-guide.html">Component Manager and System Upgrade Guide</a></li>
-               <li class="leaf"><a href="/guides/v2.0/config-guide/bk-config-guide.html">Configuration Guide</a></li>
-               <li class="leaf"><a href="/guides/v2.0/migration/bk-migration-guide.html">Migration Guide</a></li>
-               <li class="leaf"><a href="/guides/v2.0/cloud/bk-cloud.html">Magento Enterprise Cloud Guide</a></li>
+               <li class="first leaf"><a href="/guides/v2.1/install-gde/bk-install-guide.html">Installation Guide</a></li>
+               <li class="leaf"><a href="/guides/v2.1/comp-mgr/bk-compman-upgrade-guide.html">Component Manager and System Upgrade Guide</a></li>
+               <li class="leaf"><a href="/guides/v2.1/config-guide/bk-config-guide.html">Configuration Guide</a></li>
+               <li class="leaf"><a href="/guides/v2.1/migration/bk-migration-guide.html">Migration Guide</a></li>
+               <li class="leaf"><a href="/guides/v2.1/cloud/bk-cloud.html">Magento Enterprise Cloud Guide</a></li>
             </ul>
          </li>
          <li class="first">
             <a href="#">Developers</a>
             <ul class="menu nav">
-               <li class="first leaf"><a href="/guides/v2.0/frontend-dev-guide/bk-frontend-dev-guide.html">Frontend Developer Guide</a>
-               <li class="first leaf"><a href="/guides/v2.0/ui-components/ui-component.html">UI Components</a>
-   			   <li class="first leaf"><a href="/guides/v2.0/javascript-dev-guide/bk-javascript-dev-guide.html">JavaScript Developer Guide</a>
+               <li class="first leaf"><a href="/guides/v2.1/frontend-dev-guide/bk-frontend-dev-guide.html">Frontend Developer Guide</a>
+               <li class="first leaf"><a href="/guides/v2.1/ui-components/ui-component.html">UI Components</a>
+   			   <li class="first leaf"><a href="/guides/v2.1/javascript-dev-guide/bk-javascript-dev-guide.html">JavaScript Developer Guide</a>
                <div class="divider"></div></li>
-               <li class="first leaf"><a href="/guides/v2.0/extension-dev-guide/bk-extension-dev-guide.html">PHP Developer Guide</a></li>
-<li class="first leaf"><a href="/guides/v2.0/ext-best-practices/bk-ext-best-practices.html">Extension Developer Best Practices Guide</a></li>
-               <li class="leaf"><a href="/guides/v2.0/pattern-library/bk-pattern.html">Magento Admin Pattern Library</a></li>
+               <li class="first leaf"><a href="/guides/v2.1/extension-dev-guide/bk-extension-dev-guide.html">PHP Developer Guide</a></li>
+<li class="first leaf"><a href="/guides/v2.1/ext-best-practices/bk-ext-best-practices.html">Extension Developer Best Practices Guide</a></li>
+               <li class="leaf"><a href="/guides/v2.1/pattern-library/bk-pattern.html">Magento Admin Pattern Library</a></li>
                <div class="divider"></div></li>
-               <li class="leaf"><a href="/guides/v2.0/get-started/bk-get-started-api.html">Get Started with Magento Web APIs</a></li>
-               <li class="leaf"><a href="/guides/v2.0/rest/bk-rest.html">REST Reference</a></li>
-               <li class="leaf"><a href="/guides/v2.0/soap/bk-soap.html">SOAP Reference</a>
+               <li class="leaf"><a href="/guides/v2.1/get-started/bk-get-started-api.html">Get Started with Magento Web APIs</a></li>
+               <li class="leaf"><a href="/guides/v2.1/rest/bk-rest.html">REST Reference</a></li>
+               <li class="leaf"><a href="/guides/v2.1/soap/bk-soap.html">SOAP Reference</a>
                <div class="divider"></div></li>
-               <li class="leaf"><a href="/guides/v2.0/coding-standards/bk-coding-standards.html">Coding Standards</a></li>
+               <li class="leaf"><a href="/guides/v2.1/coding-standards/bk-coding-standards.html">Coding Standards</a></li>
             </ul>
          </li>
          <li class="first">
             <a href="#">Designers</a>
             <ul class="menu nav">
-               <li class="first leaf"><a href="/guides/v2.0/pattern-library/bk-pattern.html">Admin Design Pattern Library</a></li>
-               <li class="leaf"><a href="/guides/v2.0/design-styleguide/bk-styleguide.html">Admin Style Guide</a></li>
+               <li class="first leaf"><a href="/guides/v2.1/pattern-library/bk-pattern.html">Admin Design Pattern Library</a></li>
+               <li class="leaf"><a href="/guides/v2.1/design-styleguide/bk-styleguide.html">Admin Style Guide</a></li>
             </ul>
          </li>
          <li class="first">
             <a href="#">Contributor</a>
             <ul class="menu nav">
-               <li class="first leaf"><a href="/guides/v2.0/contributor-guide/contributing.html">Contributor Guide</a></li>
+               <li class="first leaf"><a href="/guides/v2.1/contributor-guide/contributing.html">Contributor Guide</a></li>
             </ul>
          </li>
           <li class="first">
-              <a href="/guides/v2.0/test/testing.html">Testing</a>
+              <a href="/guides/v2.1/test/testing.html">Testing</a>
               <ul class="menu nav">
-                  <li class="leaf"><a href="/guides/v2.0/mtf/mtf_introduction.html">Functional Testing</a></li>
-                  <li class="leaf"><a href="/guides/v2.0/test/integration/integration_test_execution.html">Integration Testing</a></li>
-                  <li class="leaf"><a href="/guides/v2.0/extension-dev-guide/test/test_js-unit.html">JavaScript Unit Testing</a></li>
-                  <li class="leaf"><a href="/guides/v2.0/test/unit/unit_test_execution.html">PHP Unit Testing</a></li>
-                  <li class="leaf"><a href="/guides/v2.0/get-started/web-api-functional-testing.html">Web API Functional Testing</a></li>
+                  <li class="leaf"><a href="/guides/v2.1/mtf/mtf_introduction.html">Functional Testing</a></li>
+                  <li class="leaf"><a href="/guides/v2.1/test/integration/integration_test_execution.html">Integration Testing</a></li>
+                  <li class="leaf"><a href="/guides/v2.1/extension-dev-guide/test/test_js-unit.html">JavaScript Unit Testing</a></li>
+                  <li class="leaf"><a href="/guides/v2.1/test/unit/unit_test_execution.html">PHP Unit Testing</a></li>
+                  <li class="leaf"><a href="/guides/v2.1/get-started/web-api-functional-testing.html">Web API Functional Testing</a></li>
               </ul>
           </li>
          <li class="first">
-            <a href="/guides/v2.0/howdoi/bk-how-do-i.html">How Do I...?</a>
+            <a href="/guides/v2.1/howdoi/bk-how-do-i.html">How Do I...?</a>
          </li>
       </ul>
 
@@ -167,9 +167,9 @@
 <!-- page-header -->
 <section class="page-intro">
 	<div class="container">
-		<h1 class="page-heading">Enable or disable maintenance mode</h1>
+		<h1 class="page-heading">Update the Magento database schema and data</h1>
 		
-			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/install-gde/install/cli/install-cli-subcommands-maint.md" target="_blank">Edit this page on GitHub</a>
+			<a class="improve-page" href="https://github.com/magento/devdocs/tree/develop/guides/v2.0/install-gde/install/cli/install-cli-subcommands-db-upgr.md" target="_blank">Edit this page on GitHub</a>
 		
 		
 	</div>
@@ -307,35 +307,12 @@
 
 				
 
-					
-					
+			
+
+				
 
 					
-
-						
-
-						
-
-							
-
-
-								
-
-
-								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.0/install-gde/install-roadmap_cli.html">Installation roadmap (reference)</a></li>
-									
-								
-
-									
-
-
-								
-
-
-
-
-						
+					
 
 					
 
@@ -350,28 +327,12 @@
 
 
 								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.0/install-gde/install/cli/install-cli-sample-data.html">Install optional sample data modules</a></li>
+									<li class="level1 "><a class="nav-header" href="/guides/v2.1/install-gde/install-roadmap_cli.html">Installation roadmap (reference)</a></li>
 									
 								
 
 									
 
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-sample-data-composer.html">Install using Composer</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-sample-data-clone.html">Install by cloning repositories</a></li>
-
-									
 
 								
 
@@ -393,7 +354,7 @@
 
 
 								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.0/install-gde/install/cli/install-cli.html">Install the Magento software using the command line</a></li>
+									<li class="level1 "><a class="nav-header" href="/guides/v2.1/install-gde/install/cli/install-cli-sample-data.html">Install optional sample data modules</a></li>
 									
 								
 
@@ -404,7 +365,7 @@
 
 									
 
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands.html">Get started with the command-line installation</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-sample-data-composer.html">Install using Composer</a></li>
 
 									
 
@@ -412,119 +373,7 @@
 
 									
 
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-install.html">Install the Magento software</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall.html">Uninstall or reinstall Magento</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-adminurl.html">Display or change the Admin URI</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-sample-data-other.html">Remove or update sample data</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-enable.html">Enable or disable modules</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall-mods.html">Uninstall modules</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-deployment.html">Create or update the deployment configuration</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2  active "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-maint.html">Enable or disable maintenance mode</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-db.html">Create the Magento database schema</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-db-upgr.html">Update the Magento database schema and data</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-store.html">Configure the store</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-admin.html">Create or unlock a Magento administrator account</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-backup.html">Back up and roll back the file system, media, and database</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-theme-uninstall.html">Uninstall themes</a></li>
-
-									
-
-								
-
-									
-
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall-langpk.html">Uninstall language packages</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-sample-data-clone.html">Install by cloning repositories</a></li>
 
 									
 
@@ -548,7 +397,7 @@
 
 
 								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.0/install-gde/install/cli/dev_options.html">Contributing developers&mdash;update, reinstall Magento</a></li>
+									<li class="level1 "><a class="nav-header" href="/guides/v2.1/install-gde/install/cli/install-cli.html">Install the Magento software using the command line</a></li>
 									
 								
 
@@ -559,7 +408,7 @@
 
 									
 
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/dev_update-magento.html">Update the Magento application</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands.html">Get started with the command-line installation</a></li>
 
 									
 
@@ -567,7 +416,7 @@
 
 									
 
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/dev_add-update.html">Add or update components</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-install.html">Install the Magento software</a></li>
 
 									
 
@@ -575,7 +424,7 @@
 
 									
 
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/dev_downgrade.html">Change to a released version</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall.html">Uninstall or reinstall Magento</a></li>
 
 									
 
@@ -583,7 +432,103 @@
 
 									
 
-									<li class="level-2 "><a href="/guides/v2.0/install-gde/install/cli/dev_reinstall.html">Reinstall the Magento software</a></li>
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-adminurl.html">Display or change the Admin URI</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-sample-data-other.html">Remove or update sample data</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-enable.html">Enable or disable modules</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall-mods.html">Uninstall modules</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-deployment.html">Create or update the deployment configuration</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-maint.html">Enable or disable maintenance mode</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-db.html">Create the Magento database schema</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2  active "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-db-upgr.html">Update the Magento database schema and data</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-store.html">Configure the store</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-admin.html">Create or unlock a Magento administrator account</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-backup.html">Back up and roll back the file system, media, and database</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-theme-uninstall.html">Uninstall themes</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall-langpk.html">Uninstall language packages</a></li>
 
 									
 
@@ -607,7 +552,66 @@
 
 
 								
-									<li class="level1 "><a class="nav-header" href="/guides/v2.0/install-gde/continue-to-verify_cli.html">Next&mdash;Installation part 3, post-installation</a></li>
+									<li class="level1 "><a class="nav-header" href="/guides/v2.1/install-gde/install/cli/dev_options.html">Contributing developers&mdash;update, reinstall Magento</a></li>
+									
+								
+
+									
+
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/dev_update-magento.html">Update the Magento application</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/dev_add-update.html">Add or update components</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/dev_downgrade.html">Change to a released version</a></li>
+
+									
+
+								
+
+									
+
+									<li class="level-2 "><a href="/guides/v2.1/install-gde/install/cli/dev_reinstall.html">Reinstall the Magento software</a></li>
+
+									
+
+								
+
+
+
+
+						
+
+					
+
+						
+
+						
+
+							
+
+
+								
+
+
+								
+									<li class="level1 "><a class="nav-header" href="/guides/v2.1/install-gde/continue-to-verify_cli.html">Next&mdash;Installation part 3, post-installation</a></li>
 									
 								
 
@@ -689,8 +693,7 @@
 <ul>
   <li><a href="#instgde-install-cli-first">First steps</a></li>
   <li><a href="#instgde-cli-subcommands-maint-prereq">Prerequisites</a></li>
-  <li><a href="#instgde-cli-maint">Enable or disable maintenance mode</a></li>
-  <li><a href="#instgde-cli-maint-exempt">Maintain the list of exempt IP addresses</a></li>
+  <li><a href="#instgde-cli-db-upgr">Upgrade the Magento database schema and data</a></li>
 </ul>
 
 <h2 id="instgde-cli-before">First steps</h2>
@@ -698,7 +701,7 @@
 
   <ol>
     <li>
-      <p>Log in to the Magento server as, or switch to, a user who has permissions to write to the Magento file system. One way to do this is to <a href="/guides/v2.0/install-gde/prereq/file-sys-perms-over.html">switch to the Magento file system owner</a>.</p>
+      <p>Log in to the Magento server as, or switch to, a user who has permissions to write to the Magento file system. One way to do this is to <a href="/guides/v2.1/install-gde/prereq/file-sys-perms-over.html">switch to the Magento file system owner</a>.</p>
 
       <p>If you use the bash shell, you can also use the following syntax to switch to the Magento file system owner and enter the command at the same time:</p>
 
@@ -724,88 +727,56 @@ sudo -u &lt;Magento file system owner&gt;  &lt;command&gt;
   <p>You can also run the commands in the following ways:</p>
 <ul><li><code>cd &lt;your Magento install dir&gt;/bin</code> and run them as <code>./magento &lt;command name&gt;</code></li>
 <li><code>php &lt;your Magento install dir&gt;/bin/magento &lt;command name&gt;</code></li></ul>
-<p><code>&lt;your Magento install dir&gt;</code> is a subdirectory of your web server's docroot. Need help locating the docroot? Click <a href="/guides/v2.0/install-gde/basics/basics_docroot.html">here</a>.</p></span>
+<p><code>&lt;your Magento install dir&gt;</code> is a subdirectory of your web server's docroot. Need help locating the docroot? Click <a href="/guides/v2.1/install-gde/basics/basics_docroot.html">here</a>.</p></span>
 </div>
 
-  <p>In addition to the command arguments discussed here, see <a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands.html#instgde-cli-subcommands-common">Common arguments</a>.</p>
+  <p>In addition to the command arguments discussed here, see <a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands.html#instgde-cli-subcommands-common">Common arguments</a>.</p>
 
   <h2 id="instgde-cli-subcommands-maint-prereq">Prerequisites</h2>
-  <p>Before you use this command, you must <a href="/guides/v2.0/install-gde/install/cli/install-cli-install.html">install the Magento software</a>.</p>
+  <p>Before you use this command, you must <a href="/guides/v2.1/install-gde/install/cli/install-cli-install.html">install the Magento software</a>.</p>
 
-  <h2 id="instgde-cli-maint">Enable or disable maintenance mode</h2>
-  <p>Magento uses <em>maintenance mode</em> to disable bootstrapping; for example, while you’re maintaining, upgrading, or reconfiguring your site. </p>
-
-  <p>Magento detects maintenance mode as follows:</p>
+  <h2 id="instgde-cli-db-upgr">Upgrade the Magento database schema and data</h2>
+  <p>Anytime you perform an action that causes the Magento database schema or data to change, you must update them by running the command discussed in this section. A partial list of reasons follows:</p>
 
   <ul>
-    <li>If <code>var/.maintenance.flag</code> does not exist, maintenance mode is off and Magento operates normally.</li>
-    <li>
-      <p>Otherwise, maintenance mode is on unless <code>var/.maintenance.ip</code> exists:</p>
+    <li>You upgraded the Magento software using the command line</li>
+    <li>You installed or updated a component using the command line</li>
+    <li>You enabled or disabled a component using the command line</li>
+  </ul>
 
-      <p><code>var/.maintenance.ip</code> can contain a list of IP addresses. If an entry point is accessed using HTTP and the client IP address corresponds to one of the entries in that list, then maintenance mode is off.</p>
-    </li>
+  <p>Note the following:</p>
+
+  <ul>
+    <li>If you used the Web Setup Wizard to do any of the preceding, you don’t have to use the command discussed in this topic.</li>
+    <li>A Magento <em>component</em> can be a module, theme, or language pack; it doesn’t matter whether the component comes from the Magento Marketplace or not</li>
   </ul>
 
   <p>Command usage:</p>
 
-  <pre><code>magento maintenance:enable [--ip=&lt;ip address&gt; ... --ip=&lt;ip address&gt;] | [ip=none]
-magento maintenance:disable [--ip=&lt;ip address&gt; ... --ip=&lt;ip address&gt;] | [ip=none]
-magento maintenance:status
+  <pre><code>magento setup:upgrade [--keep-generated]
 </code></pre>
 
-  <p>where</p>
-
-  <p><code>--ip=&lt;ip address&gt;</code> is an IP address to exempt from maintenance mode (for example, developers doing the maintenance). To exempt more than one IP address in the same command, use the option multiple times.</p>
-
-  <div class="bs-callout bs-callout-info" id="info">
-<span class="glyphicon-class">
-  <ul><li>Using <code>--ip=&lt;ip address&gt;</code> with <code>magento maintenance:disable</code> means only that you're saving the list of IPs for later use.</li>
-  	<li>To clear the list of exempt IPs, you can use <code>magento maintenance:enable --ip=none</code> or see <a href="#instgde-cli-maint-exempt">Maintain the list of exempt IP addresses</a>.</li></ul></span>
-</div>
-
-  <p><code>magento maintenance:status</code> displays the current status of maintenance mode.</p>
-
-  <p>For example, to enable maintenance mode with no IP address exemptions:</p>
-
-  <pre><code>magento maintenance:enable
-</code></pre>
-
-  <p>To enable maintenance mode for all clients except 192.0.2.10 and 192.0.2.11:</p>
-
-  <pre><code>magento maintenance:enable --ip=192.0.2.10 --ip=192.0.2.11
-</code></pre>
-
-  <h2 id="instgde-cli-maint-exempt">Maintain the list of exempt IP addresses</h2>
-  <p>To maintain the list of exempt IP addresses, you can either use the <code>[--ip=&lt;ip list&gt;]</code> option in the preceding commands or you can use the following:</p>
-
-  <pre><code>magento maintenance:allow-ips &lt;ip address&gt; .. &lt;ip address&gt; [--none]
-</code></pre>
-
-  <p>where </p>
-
-  <p><code>&lt;ip address&gt; .. &lt;ip address&gt;</code> is an optional space-delimited list of IP addresses to exempt. </p>
-
-  <p><code>--none</code> clears the list.</p>
+  <p>where <code>--keep-generated</code> is an optional argument that does not update <a href="/guides/v2.1/config-guide/cli/config-cli-subcommands-static-view.html">static view files</a>. This optional argument is for use <em>only</em> in limited circumstances by experienced system integrators. It should be used <em>only</em> in <a href="/guides/v2.1/config-guide/bootstrap/magento-modes.html#mode-production">production mode</a>. It should <em>not</em> be used in <a href="/guides/v2.1/config-guide/bootstrap/magento-modes.html#mode-developer">developer mode</a>.</p>
 
   <h4 id="related-topics">Related topics</h4>
 
   <ul>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-install.html">Installing the Magento software using the command line</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-sample-data-other.html">Remove or update sample data</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-enable.html">Enable or disable modules</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-adminurl.html">Display or change the Admin URI</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall-mods.html">Uninstall modules</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-deployment.html">Create or update the deployment configuration</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-db.html">Create the Magento database schema</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-db-upgr.html">Update the Magento database schema and data</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-store.html">Configure the store</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-subcommands-admin.html">Create or unlock a Magento administrator</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-backup.html">Back up and roll back the file system, media, and database</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-theme-uninstall.html">Uninstall themes</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall-langpk.html">Uninstall language packages</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall.html#instgde-install-uninstall">Uninstall the Magento software</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall.html#instgde-install-magento-update">Update the Magento software</a></li>
-    <li><a href="/guides/v2.0/install-gde/install/cli/install-cli-uninstall.html#instgde-install-magento-reinstall">Reinstall the Magento software</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-install.html">Installing the Magento software using the command line</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-sample-data-other.html">Remove or update sample data</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-enable.html">Enable or disable modules</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-adminurl.html">Display or change the Admin URI</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall-mods.html">Uninstall modules</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-deployment.html">Create or update the deployment configuration</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-maint.html">Enable or disable maintenance mode</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-db.html">Create the Magento database schema</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-store.html">Configure the store</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-subcommands-admin.html">Create or unlock a Magento administrator</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-backup.html">Back up and roll back the file system, media, and database</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-theme-uninstall.html">Uninstall themes</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall-langpk.html">Uninstall language packages</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall.html#instgde-install-uninstall">Uninstall the Magento software</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall.html#instgde-install-magento-update">Update the Magento software</a></li>
+    <li><a href="/guides/v2.1/install-gde/install/cli/install-cli-uninstall.html#instgde-install-magento-reinstall">Reinstall the Magento software</a></li>
   </ul>
 </div>
 
