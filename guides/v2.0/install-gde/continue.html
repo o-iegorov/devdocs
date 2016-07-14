@@ -481,7 +481,7 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 12 July 2016 (PDT)</i></p>
+			<p align="right"><i>Updated: 14 July 2016 (PDT)</i></p>
 		<h2 id="lets-get-started">Let’s get started!</h2>
 <p>This Installation Guide helps you install the Magento software on a server that doesn’t have Magento installed already. (Not sure? <a href="/guides/v2.0/install-gde/basics/basics_magento-installed.html">See if the Magento software is installed already</a> first.)</p>
 
@@ -516,10 +516,13 @@
 		<td><ol><li>Creates a Composer <em>project</em> that contains the list of components to use.</li>
 			<li>Uses Composer to update package dependencies; uses <code>composer create-project</code> to get the Magento metapackage.</li>
 			<li>Installs the Magento software using either a command line or the Setup Wizard.</li></ol>
-		<td><p><a href="/guides/v2.0/install-gde/prereq/integrator_install.html">Get the metapackage</a></p></td>
-	</td>
+		<td><p><a href="/guides/v2.0/install-gde/prereq/integrator_install.html">Get the metapackage</a></p>
+			<p>Sample commands:</p>
+			<ul><li>Get the CE metapackage: <code>composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition &lt;install dir&gt;</code></li>
+				<li>Get the EE metapackage: <code>composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition &lt;install dir&gt;
+	
 
-	</tr>
+	
 	<tr>
 		<td><p>Contributing developer</p></td>
 		<td><p>Contributes to the Magento codebase, highly technical, has their own Magento development server, understands Composer and GitHub.</p></td>
@@ -539,8 +542,9 @@
 		<td><p><a href="/guides/v2.0/install-gde/install/hosted/hosted_start.html">Easy installation (shared hosting)</a></p></td>
 	</tr>
 	
-	</tbody>
-</table>
+	
+
+</code></li></ul></td></td></tr></tbody></table>
 
 
 		</div>

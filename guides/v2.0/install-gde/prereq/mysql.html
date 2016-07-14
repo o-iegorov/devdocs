@@ -759,7 +759,7 @@
 
 	<section class="content">
 		<div class="content-wrap">
-			<p align="right"><i>Updated: 12 July 2016 (PDT)</i></p>
+			<p align="right"><i>Updated: 14 July 2016 (PDT)</i></p>
 		<h4 id="contents">Contents</h4>
 
 <ul>
@@ -1070,10 +1070,18 @@ service mysqld start
 
 <ol>
   <li>
-    <p>Install the MySQL database:</p>
+    <p><em>CentOS 6</em> Install the MySQL database:</p>
 
     <pre><code>yum -y update
 sudo wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm &amp;&amp; sudo rpm -ivh mysql-community-release-el6-5.noarch.rpm
+sudo yum -y install mysql-server
+</code></pre>
+  </li>
+  <li>
+    <p><em>CentOS 7</em> Install the MySQL database:</p>
+
+    <pre><code>yum -y update
+sudo wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm &amp;&amp; sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
 sudo yum -y install mysql-server
 </code></pre>
   </li>

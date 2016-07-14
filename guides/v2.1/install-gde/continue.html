@@ -520,10 +520,13 @@
 		<td><ol><li>Creates a Composer <em>project</em> that contains the list of components to use.</li>
 			<li>Uses Composer to update package dependencies; uses <code>composer create-project</code> to get the Magento metapackage.</li>
 			<li>Installs the Magento software using either a command line or the Setup Wizard.</li></ol>
-		<td><p><a href="/guides/v2.1/install-gde/prereq/integrator_install.html">Get the metapackage</a></p></td>
-	</td>
+		<td><p><a href="/guides/v2.1/install-gde/prereq/integrator_install.html">Get the metapackage</a></p>
+			<p>Sample commands:</p>
+			<ul><li>Get the CE metapackage: <code>composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition &lt;install dir&gt;</code></li>
+				<li>Get the EE metapackage: <code>composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition &lt;install dir&gt;
+	
 
-	</tr>
+	
 	<tr>
 		<td><p>Contributing developer</p></td>
 		<td><p>Contributes to the Magento codebase, highly technical, has their own Magento development server, understands Composer and GitHub.</p></td>
@@ -543,8 +546,9 @@
 		<td><p><a href="/guides/v2.1/install-gde/install/hosted/hosted_start.html">Easy installation (shared hosting)</a></p></td>
 	</tr>
 	
-	</tbody>
-</table>
+	
+
+</code></li></ul></td></td></tr></tbody></table>
 
 
 		</div>
