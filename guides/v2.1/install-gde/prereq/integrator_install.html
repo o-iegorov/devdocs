@@ -780,6 +780,7 @@
 <ul>
   <li><a href="#int-aud">Intended audience</a></li>
   <li><a href="#integrator-first-over">First steps</a></li>
+  <li><a href="#int-comm">Commands</a></li>
   <li><a href="#instgde-overview-composer">Composer and Magento</a></li>
   <li><a href="#instgde-prereq-compose-install">Install Composer</a></li>
   <li><a href="#integrator-first-composer-ce">Get the Magento CE metapackage</a></li>
@@ -794,6 +795,17 @@
 <p>As an integrator, you want to manage each of your Magento core components and third-party components using the Component Manager and System Upgrade.</p>
 
 <p>To do so, you start by creating a Composer project from our metapackage. The metapackage installs each component so it can be centrally managed after installation.</p>
+
+<h2 id="int-comm">Commands</h2>
+<p>If you already have everything set up, you can get the Magento CE and EE metapackages as follows:</p>
+
+<h3 id="ce">CE</h3>
+<pre><code>composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition &lt;installation directory name&gt;
+</code></pre>
+
+<h3 id="ee">EE</h3>
+<pre><code>composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition &lt;installation directory name&gt;
+</code></pre>
 
 <div>
 
